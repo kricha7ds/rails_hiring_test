@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_25_201846) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_25_212156) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -23,6 +23,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_25_201846) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["riding_id"], name: "index_polling_locations_on_riding_id"
+    t.index ["title", "address", "city", "postal_code"], name: "idx_on_title_address_city_postal_code_a56c73b8bf", unique: true
   end
 
   create_table "polls", force: :cascade do |t|
