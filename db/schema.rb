@@ -41,7 +41,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_25_201846) do
     t.string "province", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["riding_code"], name: "index_ridings_on_riding_code"
+    t.index ["riding_code"], name: "index_ridings_on_riding_code", unique: true
   end
 
   add_foreign_key "polling_locations", "ridings"
