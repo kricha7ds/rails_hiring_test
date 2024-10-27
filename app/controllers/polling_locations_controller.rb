@@ -28,10 +28,15 @@ class PollingLocationsController < ApplicationController
     respond_to do |format|
       if @polling_location.save
         format.html { redirect_to riding_url(@riding), notice: "Polling location was successfully created." }
-        format.json { render :show, status: :created, location: @polling_location }
+        format.turbo_stream {
+          render turbo_stream: [
+            turbo_stream.append("polling_locations", partial: "polling_locations/polling_location", locals: { polling_location: @polling_location, riding: @riding }),
+            turbo_stream.update("new_polling_location", partial: "polling_locations/add", locals: { riding: @riding })
+          ]
+        }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @polling_location.errors, status: :unprocessable_entity }
+        format.turbo_stream { render :new, status: :unprocessable_entity }
       end
     end
   end

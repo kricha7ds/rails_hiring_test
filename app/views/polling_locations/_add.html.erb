@@ -1,0 +1,6 @@
+<div class="col-span-7 text-center mt-3">
+  <%= link_to "+ Add polling location", new_riding_polling_location_path(@riding),
+              class: "flex justify-center items-center py-2 rounded-md bg-neutral-200 hover:cursor-pointer hover:bg-neutral-300 transition duration-150",
+              data: { turbo_frame: "new_polling_location" }
+  %>
+</div>

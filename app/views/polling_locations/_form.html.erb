@@ -1,7 +1,4 @@
-<%= form_with(model: [@riding, polling_location],
-              url: riding_polling_location_path(@riding, polling_location),
-              method: :patch,
-              class: "contents") do |f| %>
+<%= form_with(model: [@riding, polling_location], class: "contents") do |f| %>
 
   <div class="col-span-2">
     <%= f.text_area :title, rows: 2, class: "flex w-full border border-neutral-200 rounded", placeholder: "Title" %>
@@ -36,11 +33,11 @@
   </div>
 
   <div class="col-span-1 flex items-start justify-end space-x-4 text-sm">
-      <%= f.submit "Save", class: "bg-neutral-200 px-4 py-2 rounded-md bg-blue-400 text-white hover:cursor-pointer hover:bg-blue-500 transition duration-150" %>
+      <%= f.submit "Save", class: "bg-blue-400 px-4 py-2 rounded-md bg-blue-400 text-white hover:cursor-pointer hover:bg-blue-500 transition duration-150" %>
 
       <%= link_to "Cancel", riding_path(@riding),
                   class: "bg-neutral-400 px-4 py-2 rounded-md text-white hover:bg-neutral-500 transition duration-150",
-                  data: { turbo_frame: "polling_location_#{polling_location.id}" }
+                  data: { turbo_frame: polling_location.new_record? ? "new_polling_location" : dom_id(polling_location) }
       %>
   </div>
 <% end %>

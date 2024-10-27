@@ -29,14 +29,20 @@
   <div class="col-span-1 font-medium">
   </div>
 
-  <% if @polling_locations.any? %>
-    <% @polling_locations.each do |polling_location| %>
-      <%= render partial: "polling_locations/polling_location", locals: { polling_location: polling_location, riding: @riding } %>
-    <% end %>
-  <% end%>
-  <div class="col-span-7 text-center mt-3">
-    <div class="py-2 rounded-md bg-neutral-200 hover:cursor-pointer hover:bg-neutral-300 transition duration-150">
-      + Add polling location
-    </div>
+  <div id="polling_locations" class="contents">
+    <% if @polling_locations.any? %>
+      <% @polling_locations.each do |polling_location| %>
+        <%= render partial: "polling_locations/polling_location", locals: { polling_location: polling_location, riding: @riding } %>
+      <% end %>
+    <% end%>
   </div>
+
+  <%= turbo_frame_tag "new_polling_location", class: "contents" do %>
+    <div class="col-span-7 text-center mt-3">
+      <%= link_to "+ Add polling location", new_riding_polling_location_path(@riding),
+                  class: "flex justify-center items-center py-2 rounded-md bg-neutral-200 hover:cursor-pointer hover:bg-neutral-300 transition duration-150",
+                  data: { turbo_frame: "new_polling_location" }
+      %>
+    </div>
+  <% end %>
 </div>
