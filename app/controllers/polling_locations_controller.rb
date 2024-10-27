@@ -30,7 +30,10 @@ class PollingLocationsController < ApplicationController
         format.html { redirect_to riding_url(@riding), notice: "Polling location was successfully created." }
         format.turbo_stream {
           render turbo_stream: [
-            turbo_stream.append("polling_locations", partial: "polling_locations/polling_location", locals: { polling_location: @polling_location, riding: @riding }),
+            turbo_stream.append("polling_locations",
+                                  partial: "polling_locations/polling_location",
+                                  locals: { polling_location: @polling_location, riding: @riding }
+            ),
             turbo_stream.update("new_polling_location", partial: "polling_locations/add", locals: { riding: @riding })
           ]
         }
@@ -56,11 +59,11 @@ class PollingLocationsController < ApplicationController
 
   # DELETE /polling_location/1 or /polling_location/1.json
   def destroy
-    @polling_location.destroy!
+    @polling_location.destroy
 
     respond_to do |format|
-      format.html { redirect_to riding_url(@riding), notice: "Polling location was successfully destroyed." }
-      format.json { head :no_content }
+      format.html { redirect_to riding_url(@riding), notice: "Polling location was successfully deleted." }
+      format.turbo_stream { render turbo_stream: turbo_stream.remove(@polling_location) }
     end
   end
 
