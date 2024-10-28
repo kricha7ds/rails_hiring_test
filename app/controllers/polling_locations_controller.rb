@@ -15,10 +15,16 @@ class PollingLocationsController < ApplicationController
   # GET /polling_location/new
   def new
     @polling_location = @riding.polling_locations.build
+    @available_polls = @riding.polls
+                              .where(polling_location_id: nil)
+                              .sort_by { |poll| poll.number.to_i }
   end
 
   # GET /polling_location/1/edit
   def edit
+    @available_polls = @riding.polls
+                              .where('polling_location_id IS NULL OR polling_location_id = ?', @polling_location.id)
+                              .sort_by { |poll| poll.number.to_i }
   end
 
   # POST /polling_location or /polling_location.json

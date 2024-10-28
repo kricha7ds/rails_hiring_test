@@ -19,7 +19,7 @@
   <div class="col-span-1">
     <div class="max-h-40 overflow-y-auto p-2 border border-gray-200 rounded-lg bg-white">
       <div class="flex flex-wrap gap-2">
-        <%= f.collection_check_boxes :poll_ids, @riding.polls.sort_by { |poll| poll.number.to_i }, :id, :number do |checkbox| %>
+        <%= f.collection_check_boxes :poll_ids, @available_polls, :id, :number do |checkbox| %>
           <% is_checked = polling_location.poll_ids.include?(checkbox.value.to_i) %>
           <label class="cursor-pointer">
             <%= checkbox.check_box class: "sr-only peer" %>
