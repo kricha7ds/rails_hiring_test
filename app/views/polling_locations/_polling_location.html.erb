@@ -1,0 +1,43 @@
+<%= turbo_frame_tag polling_location, class: "contents" do %>
+  <div class="col-span-2">
+    <%= polling_location.title %>
+  </div>
+
+  <div class="col-span-1">
+    <%= polling_location.address %>
+  </div>
+
+  <div class="col-span-1">
+    <%= polling_location.city %>
+  </div>
+
+  <div class="col-span-1">
+    <%= polling_location.postal_code %>
+  </div>
+
+  <div class="col-span-1">
+    <div class="flex flex-wrap gap-2">
+      <% if polling_location.polls.any? %>
+        <% polling_location.polls.sort_by { |poll| poll.number.to_i }.each do |poll| %>
+          <div class="px-2 py-px rounded-md text-xs text-white bg-slate-600">
+            <%= poll.number %>
+          </div>
+        <% end %>
+      <% else %>
+        <span class="text-smtext-slate-500">No polls selected.</span>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="col-span-1 flex items-start justify-end space-x-4 text-sm">
+    <%= link_to "Edit", edit_riding_polling_location_path(@riding, polling_location),
+                class: "bg-blue-400 px-4 py-2 rounded-md bg-blue-400 text-white hover:bg-blue-500 transition duration-150",
+                data: { turbo_frame: dom_id(polling_location) }
+    %>
+
+    <%= link_to "Delete", riding_polling_location_path(@riding, polling_location),
+                class: "bg-red-500 px-4 py-2 rounded-md text-white hover:bg-red-600 transition duration-150",
+                data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to delete this polling location from #{@riding.name}'s riding?" }
+    %>
+  </div>
+<% end %>

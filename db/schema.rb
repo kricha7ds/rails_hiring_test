@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_19_215251) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_25_215844) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -23,6 +23,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_19_215251) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["riding_id"], name: "index_polling_locations_on_riding_id"
+    t.index ["title", "address", "city", "postal_code"], name: "idx_on_title_address_city_postal_code_a56c73b8bf", unique: true
   end
 
   create_table "polls", force: :cascade do |t|
@@ -31,6 +32,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_19_215251) do
     t.bigint "polling_location_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["number", "riding_id"], name: "index_polls_on_number_and_riding_id", unique: true
     t.index ["polling_location_id"], name: "index_polls_on_polling_location_id"
     t.index ["riding_id"], name: "index_polls_on_riding_id"
   end
@@ -41,6 +43,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_19_215251) do
     t.string "province", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["riding_code"], name: "index_ridings_on_riding_code", unique: true
   end
 
   add_foreign_key "polling_locations", "ridings"

@@ -67,3 +67,8 @@ To submit your application please fork this repository, and create a pull reques
 If you have specific questions about the assignment, email the email address provided to you. 
 
 Thank you for taking the time to apply, we look forward to your solutions.
+
+---
+
+## Additional Notes
+To run unit tests: `rspec spec`

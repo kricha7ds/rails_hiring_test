@@ -3,6 +3,6 @@ class Riding < ApplicationRecord
   has_many :polling_locations, dependent: :destroy
 
   validates :name, presence: true
-  validates :riding_code, presence: true
+  validates :riding_code, presence: true, uniqueness: true
   validates :province, presence: true
 end

@@ -6,8 +6,10 @@ class PollingLocation < ApplicationRecord
   validates :address, presence: true
   validates :city, presence: true
   validates :postal_code, presence: true
+  validates :title, uniqueness: { scope: [:address, :city, :postal_code], message: "Polling location has already been taken" }
+
   validate :validate_postal_code
-  
+
   after_validation :format_postal_code
 
   def format_postal_code

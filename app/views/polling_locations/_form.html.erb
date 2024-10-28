@@ -1,0 +1,43 @@
+<%= form_with(model: [@riding, polling_location], class: "contents") do |f| %>
+
+  <div class="col-span-2">
+    <%= f.text_area :title, rows: 2, class: "flex w-full border border-neutral-200 rounded", placeholder: "Title" %>
+  </div>
+
+  <div class="col-span-1">
+    <%= f.text_area :address, rows: 2, class: "flex w-full border border-neutral-200 rounded", placeholder: "Address" %>
+  </div>
+
+  <div class="col-span-1">
+    <%= f.text_field :city, class: "flex w-full border border-neutral-200 rounded", placeholder: "City" %>
+  </div>
+
+  <div class="col-span-1">
+    <%= f.text_field :postal_code, class: "flex w-full border border-neutral-200 rounded", placeholder: "Postal Code" %>
+  </div>
+
+  <div class="col-span-1">
+    <div class="max-h-40 overflow-y-auto p-2 border border-gray-200 rounded-lg bg-white">
+      <div class="flex flex-wrap gap-2">
+        <%= f.collection_check_boxes :poll_ids, @available_polls, :id, :number do |checkbox| %>
+          <% is_checked = polling_location.poll_ids.include?(checkbox.value.to_i) %>
+          <label class="cursor-pointer">
+            <%= checkbox.check_box class: "sr-only peer" %>
+            <div class="px-2 py-px rounded-md text-xs text-white bg-slate-400 peer-checked:bg-slate-600 hover:bg-slate-600 transition duration-150">
+              <%= checkbox.text %>
+            </div>
+          </label>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-span-1 flex items-start justify-end space-x-4 text-sm">
+      <%= f.submit "Save", class: "bg-blue-400 px-4 py-2 rounded-md bg-blue-400 text-white hover:cursor-pointer hover:bg-blue-500 transition duration-150" %>
+
+      <%= link_to "Cancel", riding_path(@riding),
+                  class: "bg-neutral-400 px-4 py-2 rounded-md text-white hover:bg-neutral-500 transition duration-150",
+                  data: { turbo_frame: polling_location.new_record? ? "new_polling_location" : dom_id(polling_location) }
+      %>
+  </div>
+<% end %>
